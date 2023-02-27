@@ -1,12 +1,20 @@
+using AdvertService.BLL.MappingProfiles.AdvertProfiles;
+using AdvertService.BLL.Services;
+using AdvertService.BLL.Services.Interfaces;
 using AdvertService.DAL.Data;
+using AdvertService.DAL.Interfaces;
+using AdvertService.DAL.Repositories;
+using AdvertService.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;    
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IAdvertService, AdvertsService>();
+builder.Services.AddScoped<IAdvertsRepository, AdvertsRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -14,6 +22,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdvertProfile)));
 
 var app = builder.Build();
 
@@ -27,6 +37,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
 
