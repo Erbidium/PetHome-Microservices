@@ -1,0 +1,91 @@
+﻿using AutoMapper;
+using RequestService.BLL.DTO;
+using RequestService.DAL.Entities;
+using RequestService.BLL.Abstract;
+using RequestService.BLL.Interfaces;
+using RequestService.DAL.Interfaces;
+
+namespace RequestService.BLL.Services
+{
+    public class RequestService : BaseService, IRequestService
+    {
+        public RequestService(IRequestRepository requestRepository, IMapper mapper) : base(requestRepository, mapper) { }
+
+        public async Task<RequestDTO> AddRequest(string userId, int advertId, DAL.Enums.RequestStatusEnum status)
+        {
+            //AFTER: check is user or adverb exists at all
+            //AFTER: check is user id is the same as adverb owner (then error)
+
+            Request newRequest = new()
+            {
+                UserId = userId,
+                AdvertId = advertId,
+                Status = status
+            };
+
+            await _requestRepository.Add(newRequest);
+            await _requestRepository.SaveChangesAsync();
+
+            return _mapper.Map<RequestDTO>(newRequest);
+        }
+
+        public async Task<(List<RequestDTO> requestsToRejectDTO, RequestDTO requestDTO)> ConfirmRequest(int requestId, string userId)
+        {
+            Request request = await _requestRepository.GetById(requestId) ?? throw new KeyNotFoundException("Request not found.");
+            //AFTER: check is user id is the same as adverb owner (if not, then error)
+
+            //AFTER: change advert status and performer id
+            request.Status = DAL.Enums.RequestStatusEnum.confirmed;
+
+            List<Request> requestsToReject = (await _requestRepository.GetAll()).Where(r => r.AdvertId == request.AdvertId && r.Id != request.Id).ToList();
+            requestsToReject.ForEach(r =>
+            {
+                r.Status = DAL.Enums.RequestStatusEnum.rejected;
+                _requestRepository.Update(r);
+            });
+
+            await _requestRepository.SaveChangesAsync();
+
+            RequestDTO requestDTO = _mapper.Map<RequestDTO>(request);
+            List<RequestDTO> requestsToRejectDTO = _mapper.Map<List<RequestDTO>>(requestsToReject);
+            return (requestsToRejectDTO, requestDTO);
+        }
+
+        public async Task<RequestDTO> ApplyGeneratedRequest(int requestId, string userId)
+        {
+            Request request = await _requestRepository.GetById(requestId) ?? throw new KeyNotFoundException("Request not found");
+            if (request.UserId != userId) throw new ArgumentException("You do not have the access.");
+
+            request.Status = DAL.Enums.RequestStatusEnum.applied;
+            _requestRepository.Update(request);
+
+            await _requestRepository.SaveChangesAsync();
+
+            return _mapper.Map<RequestDTO>(request);
+        }
+
+        public async Task<RequestDTO> DeleteRequest(int requestId, string userId)
+        {
+            Request request = await _requestRepository.GetById(requestId) ?? throw new KeyNotFoundException("Request not found");
+            if (request.UserId != userId) throw new ArgumentException("You do not have the access.");
+
+            _requestRepository.Delete(request);
+            await _requestRepository.SaveChangesAsync();
+
+            return _mapper.Map<RequestDTO>(request);
+        }
+
+        public async Task<RequestDTO> RejectRequest(int requestId, string userId)
+        {
+            Request request = await _requestRepository.GetById(requestId) ?? throw new KeyNotFoundException("Request not found");
+            //AFTER: check is user id is the same as adverb owner (if not, then error)
+
+            request.Status = DAL.Enums.RequestStatusEnum.rejected;
+            _requestRepository.Update(request);
+
+            await _requestRepository.SaveChangesAsync();
+
+            return _mapper.Map<RequestDTO>(request);
+        }
+    }
+}

@@ -39,5 +39,10 @@ namespace RequestService.DAL.Repositories
         {
             _context.Requests.Remove(requestToRemove);
         }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _context.SaveChangesAsync();
+        }
     }
 }

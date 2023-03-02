@@ -9,5 +9,6 @@ namespace RequestService.DAL.Interfaces
         Task Add(Request requestToAdd);
         void Update(Request requestToUpdate);
         void Delete(Request requestToRemove);
+        Task<int> SaveChangesAsync();
     }
 }
