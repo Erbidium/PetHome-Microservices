@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RequestService.DAL.Repositories
 {
-    public class RequestRepository : IRequestRepository
+    public class RequestsRepository : IRequestsRepository
     {
         private readonly DataContext _context;
         
-        public RequestRepository(DataContext context)
+        public RequestsRepository(DataContext context)
         {
             _context = context;
         }

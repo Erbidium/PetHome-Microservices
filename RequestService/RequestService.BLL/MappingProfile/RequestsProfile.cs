@@ -4,9 +4,9 @@ using RequestService.DAL.Entities;
 
 namespace RequestService.BLL.MappingProfile
 {
-    public class RequestProfile : Profile
+    public class RequestsProfile : Profile
     {
-        public RequestProfile()
+        public RequestsProfile()
         {
             CreateMap<Request, RequestDTO>();
             CreateMap<RequestDTO, Request>();

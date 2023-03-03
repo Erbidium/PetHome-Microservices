@@ -7,9 +7,9 @@ using RequestService.DAL.Interfaces;
 
 namespace RequestService.BLL.Services
 {
-    public class RequestService : BaseService, IRequestService
+    public class RequestsService : BaseService, IRequestsService
     {
-        public RequestService(IRequestRepository requestRepository, IMapper mapper) : base(requestRepository, mapper) { }
+        public RequestsService(IRequestsRepository requestRepository, IMapper mapper) : base(requestRepository, mapper) { }
 
         public async Task<RequestDTO> AddRequest(string userId, int advertId, DAL.Enums.RequestStatusEnum status)
         {

@@ -3,7 +3,7 @@ using RequestService.DAL.Enums;
 
 namespace RequestService.BLL.Interfaces
 {
-    public interface IRequestService
+    public interface IRequestsService
     {
         Task<RequestDTO> AddRequest(string userId, int advertId, RequestStatusEnum status);
         Task<(List<RequestDTO> requestsToRejectDTO, RequestDTO requestDTO)> ConfirmRequest(int requestId, string userId);

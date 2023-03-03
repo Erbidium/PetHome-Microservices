@@ -2,7 +2,7 @@
 
 namespace RequestService.DAL.Interfaces
 {
-    public interface IRequestRepository
+    public interface IRequestsRepository
     {
         Task<Request?> GetById(int id);
         Task<List<Request>> GetAll();
