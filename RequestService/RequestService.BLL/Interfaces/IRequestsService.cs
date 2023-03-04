@@ -5,6 +5,8 @@ namespace RequestService.BLL.Interfaces
 {
     public interface IRequestsService
     {
+        Task<RequestDTO> GetById(int requestId);
+        Task<ICollection<RequestDTO>> GetAll();
         Task<RequestDTO> AddRequest(string userId, int advertId, RequestStatusEnum status);
         Task<(List<RequestDTO> requestsToRejectDTO, RequestDTO requestDTO)> ConfirmRequest(int requestId, string userId);
         Task<RequestDTO> ApplyGeneratedRequest(int requestId, string userId);

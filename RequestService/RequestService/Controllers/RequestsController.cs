@@ -6,7 +6,6 @@ using RequestService.Attributes;
 
 namespace RequestService.Controllers
 {
-    [UserId]
     [ApiController]
     [Route("api/[controller]")]
     public class RequestsController : ControllerBase
@@ -19,8 +18,20 @@ namespace RequestService.Controllers
             _requestService = requestService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _requestService.GetAll());
+        }
+
+        [HttpGet("{id}")] 
+        public async Task<IActionResult> GetById(int id)
+        {
+            return Ok(await _requestService.GetById(id));
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] int advertId)
+        public async Task<IActionResult> Post(int advertId)
         {
             RequestDTO requestDTO = await _requestService.AddRequest(UserId, advertId, DAL.Enums.RequestStatusEnum.applied);
             return Ok();

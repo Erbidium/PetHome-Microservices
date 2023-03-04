@@ -11,10 +11,24 @@ namespace RequestService.BLL.Services
     {
         public RequestsService(IRequestsRepository requestRepository, IMapper mapper) : base(requestRepository, mapper) { }
 
+        public async Task<RequestDTO> GetById(int id)
+        {
+            Request request = await _requestRepository.GetById(id) ?? throw new KeyNotFoundException("Request not found.");
+            return _mapper.Map<RequestDTO>(request);
+        }
+
+        public async Task<ICollection<RequestDTO>> GetAll()
+        {
+            List<Request> requests = await _requestRepository.GetAll();
+            return requests.Select(r => _mapper.Map<RequestDTO>(r)).ToList();
+        }
+
         public async Task<RequestDTO> AddRequest(string userId, int advertId, DAL.Enums.RequestStatusEnum status)
         {
             //AFTER: check is user or adverb exists at all
             //AFTER: check is user id is the same as adverb owner (then error)
+
+            //TODO: check is there other requests to the same advert from the same user. If so - error.
 
             Request newRequest = new()
             {
@@ -37,6 +51,7 @@ namespace RequestService.BLL.Services
             //AFTER: change advert status and performer id
             request.Status = DAL.Enums.RequestStatusEnum.confirmed;
 
+            //TODO: move this specification to the repository method
             List<Request> requestsToReject = (await _requestRepository.GetAll()).Where(r => r.AdvertId == request.AdvertId && r.Id != request.Id).ToList();
             requestsToReject.ForEach(r =>
             {
