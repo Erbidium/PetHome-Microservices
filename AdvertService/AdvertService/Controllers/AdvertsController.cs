@@ -14,11 +14,17 @@ namespace AdvertService.Controllers
             _advertService = advertService;
         }
 
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<AdvertDTO>>> GetAdverts()
+        //{
+        //    var adverts = await _advertService.getAdverts();
+        //    return Ok(adverts);
+        //}
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AdvertDTO>>> GetAdverts()
+        public async Task<ActionResult<int>> GetAdverts()
         {
-            var adverts = await _advertService.getAdverts();
-            return Ok(adverts);
+            return Ok(123);
         }
 
         [HttpGet("{id}")]

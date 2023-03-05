@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: advert-service-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/advert-service
+            pathType: "Prefix"
+            backend:
+              service:
+                name: advert-service-service
+                port:
+                  number: 80
