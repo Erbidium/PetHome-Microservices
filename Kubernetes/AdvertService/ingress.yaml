@@ -8,7 +8,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/advert-service
+          - path: /api/adverts
             pathType: "Prefix"
             backend:
               service:
