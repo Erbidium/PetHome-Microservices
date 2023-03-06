@@ -24,7 +24,7 @@ namespace AdvertService.Controllers
         [HttpGet]
         public async Task<ActionResult<int>> GetAdverts()
         {
-            return Ok(123);
+            return Ok(123456);
         }
 
         [HttpGet("{id}")]
