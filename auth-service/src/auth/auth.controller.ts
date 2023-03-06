@@ -1,13 +1,22 @@
 import {
-  BadRequestException,
   Body,
   Controller,
+  HttpCode,
+  HttpStatus,
   Inject,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
-import { AuthTokensDto, CredentialsDto } from './dto';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { UserId } from 'src/extensions/decorators';
+import { AccessGuard } from 'src/extensions/guards';
+import {
+  AuthTokensDto,
+  SignupCredentialsDto,
+  SigninCredentialsDto,
+  RefreshDto,
+} from './dto';
 import { AUTH_SERVICE, IAuthService } from './iauth.service';
 
 @Controller('auth')
@@ -17,42 +26,50 @@ export class AuthController {
     private authService: IAuthService,
   ) {}
 
-  @Post('signup')
   @ApiResponse({
     status: 200,
     description: 'The auth tokens',
     type: AuthTokensDto,
   })
-  async signUp(@Body() credentials: CredentialsDto): Promise<AuthTokensDto> {
+  @Post('signup')
+  async signUp(
+    @Body() credentials: SignupCredentialsDto,
+  ): Promise<AuthTokensDto> {
     return this.authService.signUp(credentials);
   }
 
-  @Post('signin')
   @ApiResponse({
     status: 200,
     description: 'The auth tokens',
     type: AuthTokensDto,
   })
-  async signIn(@Body() credentials: CredentialsDto): Promise<AuthTokensDto> {
+  @Post('signin')
+  async signIn(
+    @Body() credentials: SigninCredentialsDto,
+  ): Promise<AuthTokensDto> {
     return this.authService.signIn(credentials);
   }
 
-  @Patch('refresh')
   @ApiResponse({
     status: 200,
     description: 'The auth tokens',
     type: AuthTokensDto,
   })
-  async refresh(): Promise<AuthTokensDto> {
-    throw new BadRequestException();
+  @Patch('refresh')
+  async refresh(@Body() refreshDto: RefreshDto): Promise<AuthTokensDto> {
+    return await this.authService.refresh(refreshDto.token);
   }
 
-  @Post('logout')
+  @ApiBearerAuth('access')
   @ApiResponse({
-    status: 200,
+    status: 204,
     description: 'The user logged out',
   })
-  async logout(): Promise<void> {
-    throw new BadRequestException();
+  @UseGuards(AccessGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Post('logout')
+  async logout(@UserId() userId: string): Promise<void> {
+    console.log(userId);
+    await this.authService.logout(userId);
   }
 }

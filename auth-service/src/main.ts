@@ -11,6 +11,17 @@ async function bootstrap() {
     .setTitle('Auth service')
     .setDescription('Слава Україні!')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        description: `Bearer <JWT>`,
+        name: 'Authorization',
+        bearerFormat: 'Bearer',
+        scheme: 'Bearer',
+        type: 'http',
+        in: 'Header',
+      },
+      'access',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
