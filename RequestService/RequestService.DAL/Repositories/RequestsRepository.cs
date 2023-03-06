@@ -24,6 +24,11 @@ namespace RequestService.DAL.Repositories
             return _context.Requests.FindAsync(id).AsTask();
         }
 
+        public Task<List<Request>> GetByAdvertId(int advertId)
+        {
+            return _context.Requests.Where(r => advertId == r.AdvertId).ToListAsync();
+        }
+
         public async Task Add(Request requestToAdd)
         {
             await _context.Requests.AddAsync(requestToAdd);

@@ -33,36 +33,31 @@ namespace RequestService.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(int advertId)
         {
-            RequestDTO requestDTO = await _requestService.AddRequest(UserId, advertId, DAL.Enums.RequestStatusEnum.applied);
-            return Ok();
+            return Ok(await _requestService.AddRequest(UserId, advertId, DAL.Enums.RequestStatusEnum.applied));
         }
 
         [HttpPut("confirm/{id}")]
         public async Task<IActionResult> ConfirmRequest(int id)
         {
-            var requestsToRejectAndConfirmedRequest = await _requestService.ConfirmRequest(id, UserId);
-            return Ok();
+            return Ok(await _requestService.ConfirmRequest(id, UserId));
         }
 
         [HttpPut("reject/{id}")]
         public async Task<IActionResult> Reject(int id)
         {
-            RequestDTO requestDTO = await _requestService.RejectRequest(id, UserId);
-            return Ok();
+            return Ok(await _requestService.RejectRequest(id, UserId));
         }
 
         [HttpPut("apply/{id}")]
         public async Task<IActionResult> applyGeneratedRequest(int id)
         {
-            RequestDTO requestDTO = await _requestService.ApplyGeneratedRequest(id, UserId);
-            return Ok();
+            return Ok(await _requestService.ApplyGeneratedRequest(id, UserId));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> deleteRequest(int id)
         {
-            RequestDTO requestDTO = await _requestService.DeleteRequest(id, UserId);
-            return Ok();
+            return Ok(await _requestService.DeleteRequest(id, UserId));
         }
     }
 }

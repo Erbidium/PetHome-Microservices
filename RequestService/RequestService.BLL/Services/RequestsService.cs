@@ -28,7 +28,8 @@ namespace RequestService.BLL.Services
             //AFTER: check is user or adverb exists at all
             //AFTER: check is user id is the same as adverb owner (then error)
 
-            //TODO: check is there other requests to the same advert from the same user. If so - error.
+            List<Request> requestToAdvert = await _requestRepository.GetByAdvertId(advertId);
+            if (requestToAdvert.Any(r => r.UserId == userId)) throw new ArgumentException("User already added request to this advert");
 
             Request newRequest = new()
             {
@@ -51,8 +52,8 @@ namespace RequestService.BLL.Services
             //AFTER: change advert status and performer id
             request.Status = DAL.Enums.RequestStatusEnum.confirmed;
 
-            //TODO: move this specification to the repository method
-            List<Request> requestsToReject = (await _requestRepository.GetAll()).Where(r => r.AdvertId == request.AdvertId && r.Id != request.Id).ToList();
+            List<Request> requestsToReject = await _requestRepository.GetByAdvertId(request.AdvertId);
+            requestsToReject.RemoveAll(r => r.UserId == userId);
             requestsToReject.ForEach(r =>
             {
                 r.Status = DAL.Enums.RequestStatusEnum.rejected;
