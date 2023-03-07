@@ -47,7 +47,7 @@ namespace AdvertService.BLL.Services
             if (advertInDb.ownerId != "userID") throw new ArgumentException("You do not have the access."); //here is hardcode
 
             advertInDb.status = AdvertStatusEnum.finished;
-            await _advertsRepository.Update(advertInDb);
+            _advertsRepository.Update(advertInDb);
             await _advertsRepository.SaveChangesAsync();
         }
         public async Task deleteAdvert(int advertId)
@@ -56,7 +56,7 @@ namespace AdvertService.BLL.Services
             if (advertInDb == null) throw new KeyNotFoundException("Advert not found.");
             if (advertInDb.ownerId != "userID") throw new ArgumentException("You do not have the access."); //here is hardcode
 
-            await _advertsRepository.Delete(advertInDb);
+            _advertsRepository.Delete(advertInDb);
             await _advertsRepository.SaveChangesAsync();
         }
         public async Task updateAdvert(AdvertCreateRedoDTO newData, int advertId)
@@ -67,7 +67,7 @@ namespace AdvertService.BLL.Services
 
             advertInDb = _mapper.Map(newData, advertInDb);
 
-            await _advertsRepository.Update(advertInDb);
+            _advertsRepository.Update(advertInDb);
             await _advertsRepository.SaveChangesAsync();
         }
     }

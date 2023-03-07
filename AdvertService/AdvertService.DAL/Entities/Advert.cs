@@ -22,6 +22,6 @@ namespace AdvertService.DAL.Entities
         public DateTime endTime { get; set; }
         public string ownerId { get; set; } = string.Empty;
         public string? performerId { get; set; }
-        public List<AdvertToRequests> advertToRequest { get; set; }
+        public List<AdvertToRequests> advertToRequest { get; set; } = new();
     }
 }
