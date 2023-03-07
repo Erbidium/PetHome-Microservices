@@ -1,0 +1,22 @@
+.navBar {
+    min-height: 50px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color:lightblue;
+    padding: 0 15px;
+}
+
+.menu a {
+    margin-right: 0;
+    color: black;
+    margin: 40px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: white;
+    transition: 0.3s ease;
+}
+

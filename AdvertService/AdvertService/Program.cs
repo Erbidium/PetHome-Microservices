@@ -6,9 +6,22 @@ using AdvertService.DAL.Interfaces;
 using AdvertService.DAL.Repositories;
 using AdvertService.Middlewares;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;    
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORSPolicy",
+        builder =>
+        {
+            builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowed(origin => true);
+        });
+});
 
 // Add services to the container.
 
@@ -35,6 +48,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CORSPolicy");
 
 app.UseAuthorization();
 
