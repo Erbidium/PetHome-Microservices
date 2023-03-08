@@ -68,7 +68,7 @@ export class AuthService implements IAuthService {
   }
 
   async refresh(token: string): Promise<AuthTokensDto> {
-    const decodedToken = verify(token, 'process.env.REFRESH_SALT') as {
+    const decodedToken = verify(token, process.env.REFRESH_SALT) as {
       sub?: string;
     };
     if (!decodedToken || !decodedToken.sub) {
@@ -98,11 +98,11 @@ export class AuthService implements IAuthService {
 
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(jwtPayload, {
-        secret: 'process.env.ACCESS_SALT',
+        secret: process.env.ACCESS_SALT,
         expiresIn: '15m',
       }),
       this.jwtService.signAsync(jwtPayload, {
-        secret: 'process.env.REFRESH_SALT',
+        secret: process.env.REFRESH_SALT,
         expiresIn: '7d',
       }),
     ]);
@@ -111,6 +111,6 @@ export class AuthService implements IAuthService {
   }
 
   async getHashedString(token: string): Promise<string> {
-    return await hash(token, 10); // process.env.SALT
+    return await hash(token, parseInt(process.env.SALT));
   }
 }
