@@ -7,8 +7,11 @@ import { AdvertList } from '../../Components/Adverts/AdvertList/AdvertList';
 import { CreteAdvertForm } from '../../Components/Adverts/Forms/CreateAdvertForm';
 
 export default function Adverts() {
+  
   const [adverts, setAdverts] = useState([]);
   const [updateAdverts, setUpdateAdverts] = useState(false);
+  const [prevData, setPrevData] = useState({});
+  const [isRedo, setIsRedo] = useState(false);
 
   const [fetchAdverts, loader, error] = useFetching(async () => {
     const response = await AdvertService.getAllAdverts()
@@ -28,20 +31,34 @@ export default function Adverts() {
 
 
   if (loader) return <MyLoader />
-
   return (
     <div className={s.page}>
       <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Створення  оголошення</h1>
-      <CreteAdvertForm
-        updateAdverts={updateAdverts}
-        setUpdateAdverts={setUpdateAdverts}
-      />
+      {
+        isRedo ?
+          <CreteAdvertForm
+            updateAdverts={updateAdverts}
+            setUpdateAdverts={setUpdateAdverts}
+            isRedo={true}
+            prevData={prevData}
+          />
+          :
+          <CreteAdvertForm
+            updateAdverts={updateAdverts}
+            isRedo={false}
+            setUpdateAdverts={setUpdateAdverts}
+            prevData={{ name: '', description: '', startTime: '', endTime: '', location: '', cost: '' }}
+          />
+      }
+
       <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Усі оголошення</h1>
       <div>
         <AdvertList
           adverts={adverts}
           setUpdateAdverts={setUpdateAdverts}
           updateAdverts={updateAdverts}
+          setPrevData={setPrevData}
+          setIsRedo={setIsRedo}
         />
       </div>
     </div>

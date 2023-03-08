@@ -7,7 +7,7 @@ import AdvertService from '../../../HTTP/AdvertService'
 import { MyLoader } from '../../../UI/MyLoader/MyLoader'
 
 
-export const AdvertItem = ({ advert, setUpdateAdverts, updateAdverts }) => {
+export const AdvertItem = ({ advert, setUpdateAdverts, updateAdverts, setPrevData, setIsRedo }) => {
 
   const [deleteAdvertFetching, loader, error] = useFetching(async () => {
     await AdvertService.deleteAdvert(advert?.id)
@@ -20,6 +20,11 @@ export const AdvertItem = ({ advert, setUpdateAdverts, updateAdverts }) => {
     } catch (e) {
       console.error(error)
     }
+  }
+
+  async function redoAdvert() {
+    setPrevData(advert)
+    setIsRedo(true)
   }
 
   if (loader) return <MyLoader />
@@ -45,7 +50,7 @@ export const AdvertItem = ({ advert, setUpdateAdverts, updateAdverts }) => {
         </div>
         <div className={s.buttons}>
           <MyButton style={{ backgroundColor: 'rgba(230,0,0,1)', height: '30px' }} onClick={deleteAdvert}>Видалити</MyButton>
-          <MyButton style={{ backgroundColor: 'rgba(160,210,20,1)', height: '30px' }}>Редагувати</MyButton>
+          <MyButton style={{ backgroundColor: 'rgba(160,210,20,1)', height: '30px' }} onClick={redoAdvert}>Редагувати</MyButton>
         </div>
       </li>
     </div>
