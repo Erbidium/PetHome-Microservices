@@ -7,6 +7,7 @@ import { AdvertList } from '../../Components/Adverts/AdvertList/AdvertList';
 
 export default function Adverts() {
   const [adverts, setAdverts] = useState([]);
+  const [updateAdverts, setUpdateAdverts] = useState(false);
 
   const [fetchAdverts, loader, error] = useFetching(async () => {
     const response = await AdvertService.getAllAdverts()
@@ -14,28 +15,30 @@ export default function Adverts() {
   })
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetch() {
       try {
         await fetchAdverts()
       } catch (e) {
         console.error(error)
       }
     }
-    fetchData();
-  }, [])
+    fetch()
+  }, [updateAdverts])
+
+
+  if (loader) return <MyLoader />
 
   return (
     <div className={s.page}>
       <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Усі оголошення</h1>
-      {loader
-        ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}><MyLoader /></div>
-        :
-        <div>
-          <AdvertList
-            adverts={adverts}
-          />
-        </div>
-      }
+
+      <div>
+        <AdvertList
+          adverts={adverts}
+          setUpdateAdverts={setUpdateAdverts}
+          updateAdverts={updateAdverts}
+        />
+      </div>
     </div>
   )
 }

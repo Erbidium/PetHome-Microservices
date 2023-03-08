@@ -33,9 +33,13 @@
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-.advertItem:hover{
-    cursor: pointer;
-    transition: ease 0.3s;
-    box-shadow: none;
+.buttons{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.buttons >*{
+    margin: 5px;
 }
