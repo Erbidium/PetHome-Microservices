@@ -1,6 +1,6 @@
-﻿namespace UserService.DAL.Entities;
+﻿namespace UserService.BLL.DTOs;
 
-public class User
+public class UserDto
 {
     public long Id { get; set; }
     public string Email { get; set; } = string.Empty;
