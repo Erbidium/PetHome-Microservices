@@ -4,6 +4,7 @@ import AdvertService from '../../HTTP/AdvertService';
 import { useFetching } from '../../Hooks/useFetching';
 import { MyLoader } from '../../UI/MyLoader/MyLoader';
 import { AdvertList } from '../../Components/Adverts/AdvertList/AdvertList';
+import { CreteAdvertForm } from '../../Components/Adverts/Forms/CreateAdvertForm';
 
 export default function Adverts() {
   const [adverts, setAdverts] = useState([]);
@@ -30,8 +31,12 @@ export default function Adverts() {
 
   return (
     <div className={s.page}>
+      <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Створення  оголошення</h1>
+      <CreteAdvertForm
+        updateAdverts={updateAdverts}
+        setUpdateAdverts={setUpdateAdverts}
+      />
       <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Усі оголошення</h1>
-
       <div>
         <AdvertList
           adverts={adverts}
