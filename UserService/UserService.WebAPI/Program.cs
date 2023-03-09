@@ -1,3 +1,9 @@
+using System.Reflection;
+using UserService.BLL.MappingProfiles;
+using UserService.BLL.Services.Interfaces;
+using UserService.DAL.Interfaces;
+using UserService.DAL.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -16,9 +22,12 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IUserService, UserService.BLL.Services.UserService>();
+builder.Services.AddScoped<IUserRepository, MockUserRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(UserProfile)));
 
 var app = builder.Build();
 
