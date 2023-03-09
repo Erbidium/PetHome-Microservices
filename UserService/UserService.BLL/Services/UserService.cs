@@ -28,16 +28,31 @@ public class UserService: BaseService, IUserService
 
     public async Task CreateUser(CreateUserDto user)
     {
-        throw new NotImplementedException();
+        var newUser = Mapper.Map<User>(user);
+        
+        await UserRepository.Add(newUser);
+        await UserRepository.SaveChangesAsync();
     }
 
     public async Task DeleteUser(long userId)
     {
-        throw new NotImplementedException();
+        var user = await UserRepository.GetById(userId);
+        if (user is null)
+            throw new KeyNotFoundException("User is not found.");
+
+        UserRepository.Delete(user);
+        await UserRepository.SaveChangesAsync();
     }
 
     public async Task UpdateAdvert(UserDto newUserData, long userId)
     {
-        throw new NotImplementedException();
+        var user = await UserRepository.GetById(userId);
+        if (user is null)
+            throw new KeyNotFoundException("User is not found.");
+
+        Mapper.Map(newUserData, user);
+
+        UserRepository.Update(user);
+        await UserRepository.SaveChangesAsync();
     }
 }
