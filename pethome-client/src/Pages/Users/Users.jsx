@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
+import s from './Users.module.css'
 import {useFetching} from "../../Hooks/useFetching";
-import AdvertService from "../../HTTP/AdvertService";
 import UserService from "../../HTTP/UserService";
 import {MyLoader} from "../../UI/MyLoader/MyLoader";
+import {UserList} from "../../Components/Users/UserList/UserList";
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -27,5 +28,20 @@ export default function Users() {
     }, [updateUsers])
 
     if (loader) return <MyLoader />
-    return <div>Users</div>
+    return (
+        <div className={s.page}>
+
+
+            <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Усі оголошення</h1>
+            <div>
+                <UserList
+                    users={users}
+                    setUpdateAdverts={setUpdateUsers}
+                    updateAdverts={updateUsers}
+                    setPrevData={setPrevData}
+                    setIsRedo={setIsUpdate}
+                />
+            </div>
+        </div>
+    )
 }

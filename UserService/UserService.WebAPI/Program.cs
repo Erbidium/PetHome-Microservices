@@ -3,6 +3,7 @@ using UserService.BLL.MappingProfiles;
 using UserService.BLL.Services.Interfaces;
 using UserService.DAL.Interfaces;
 using UserService.DAL.Repositories;
+using UserService.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CORSPolicy");
+
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
 
