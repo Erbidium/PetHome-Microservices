@@ -37,6 +37,8 @@ export const UserItem = ({ user, setUpdateUsers, updateUsers, setPrevData, setIs
         </div>
         <div className={s.infoSection}>
           <div className={s.userInfo}>
+            <div>Email: {user?.email}</div>
+            <div>📍{user?.location}</div>
           </div>
         </div>
         <div className={s.buttons}>

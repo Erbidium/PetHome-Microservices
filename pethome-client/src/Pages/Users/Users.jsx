@@ -47,7 +47,7 @@ export default function Users() {
                 />
         }
 
-            <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Усі оголошення</h1>
+            <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Усі користувачі</h1>
             <div>
                 <UserList
                     users={users}
