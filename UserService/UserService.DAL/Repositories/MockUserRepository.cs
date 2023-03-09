@@ -27,6 +27,7 @@ public class MockUserRepository : IUserRepository
 
     public async Task Add(User user)
     {
+        user.Id = _users.Max(u => u.Id) + 1;
         _users.Add(user);
     }
 
