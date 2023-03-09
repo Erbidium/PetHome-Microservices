@@ -3,6 +3,8 @@ import { useFetching } from '../../../../Hooks/useFetching'
 import s from './UpdateUserForm.module.css'
 import { MyLoader } from '../../../../UI/MyLoader/MyLoader'
 import UserService from "../../../../HTTP/UserService";
+import {MyButton} from "../../../../UI/MyButton/MyButton";
+import {MyInput} from "../../../../UI/Inputs/MyInput";
 
 export const UpdateUserForm = ({ updateUsers, setUpdateUsers, prevData }) => {
 
@@ -31,5 +33,21 @@ export const UpdateUserForm = ({ updateUsers, setUpdateUsers, prevData }) => {
     }, [prevData]);
 
     if (loader2) return <MyLoader />
-
+    return (
+        <div className={s.form}>
+            <form>
+                <MyInput
+                    placeholder='Введіть назву'
+                    value={userData?.name}
+                    onChange={e => setUserData({ ...userData, name: e.target.value })}
+                />
+                <MyInput
+                    placeholder='Введіть локацію'
+                    value={userData?.location}
+                    onChange={e => setUserData({ ...userData, location: e.target.value })}
+                />
+                <MyButton style={{ backgroundColor: 'orange' }} onClick={(e) => updateUser(e)}>Редагувати дані користувача</MyButton>
+            </form>
+        </div>
+    )
 }
