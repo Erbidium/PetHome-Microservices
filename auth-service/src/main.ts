@@ -6,6 +6,11 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Auth service')
@@ -27,11 +32,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  console.log(process.env.ACCESS_SALT);
-
-  await app.listen(3000, () => {
-    console.log(`Server running at http://localhost:3000`);
-    console.log(`Swagger running at http://localhost:3000/api`);
+  await app.listen(3030, () => {
+    console.log(`Server running at http://localhost:3030`);
+    console.log(`Swagger running at http://localhost:3030/api`);
   });
 }
 bootstrap();
