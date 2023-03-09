@@ -1,5 +1,5 @@
 import axios from 'axios';
-export const url = 'https://localhost:7297' // 'http://192.168.51.114'
+export const url = 'http://172.24.79.8' // 'http://172.24.79.8'
 
 const $api = axios.create({
     withCredentials: true,
