@@ -42,7 +42,7 @@ public class UsersController : ControllerBase
     }
     
     [HttpPut("{userId:long}")]
-    public async Task<ActionResult> UpdateUser([FromForm] UserDto newUserData, long userId)
+    public async Task<ActionResult> UpdateUser([FromForm] UpdateUserDto newUserData, long userId)
     {
         await _userService.UpdateUser(newUserData, userId);
         return Ok();
