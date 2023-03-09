@@ -1,5 +1,18 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORSPolicy",
+        corsPolicyBuilder =>
+        {
+            corsPolicyBuilder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .SetIsOriginAllowed(_ => true);
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
