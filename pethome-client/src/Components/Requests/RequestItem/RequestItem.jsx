@@ -39,7 +39,7 @@ export const RequestItem = ({ request, setUpdateRequests, updateRequests, setPre
       await applyRequestFetching()
       setUpdateRequests(!updateRequests)
     } catch (e) {
-      console.error(error)
+      console.error(error2)
     }
   }
 
@@ -48,7 +48,7 @@ export const RequestItem = ({ request, setUpdateRequests, updateRequests, setPre
       await confirmRequestFetching()
       setUpdateRequests(!updateRequests)
     } catch (e) {
-      console.error(error)
+      console.error(error3)
     }
   }
 
@@ -57,7 +57,7 @@ export const RequestItem = ({ request, setUpdateRequests, updateRequests, setPre
       await rejectRequestFetching()
       setUpdateRequests(!updateRequests)
     } catch (e) {
-      console.error(error)
+      console.error(error4)
     }
   }
 
@@ -67,20 +67,21 @@ export const RequestItem = ({ request, setUpdateRequests, updateRequests, setPre
       <li className={s.requestItem}>
         <div className={s.requestName}>
           <strong>
-            {request?.id}
+            Request ID: {request?.id}
           </strong>
         </div>
         <div className={s.infoSection}>
           <div className={s.requestInfo}>
-            <div className={s.requestName}>{request?.userId}</div>
-            <div className={s.requestName}>{request?.state}</div>
+            <div className={s.requestName}>User ID: "{request?.userId}"</div>
+            <div className={s.requestName}>Advert ID: "{request?.advertId}"</div>
+            <div className={s.requestName}>State: {request?.status}</div>
           </div>
         </div>
         <div className={s.buttons}>
           <MyButton style={{ backgroundColor: 'rgba(230,0,0,1)', height: '30px' }} onClick={deleteRequest}>Видалити</MyButton>
-          <MyButton style={{ backgroundColor: 'rgba(160,210,20,1)', height: '30px' }} onClick={applyRequest}>a</MyButton>
+          <MyButton style={{ backgroundColor: 'rgba(150,150,150,1)', height: '30px' }} onClick={applyRequest}>a</MyButton>
           <MyButton style={{ backgroundColor: 'rgba(160,210,20,1)', height: '30px' }} onClick={confirmRequest}>c</MyButton>
-          <MyButton style={{ backgroundColor: 'rgba(160,210,20,1)', height: '30px' }} onClick={rejectRequest}>r</MyButton>
+          <MyButton style={{ backgroundColor: 'rgba(250,20,20,1)', height: '30px' }} onClick={rejectRequest}>r</MyButton>
         </div>
       </li>
     </div>
