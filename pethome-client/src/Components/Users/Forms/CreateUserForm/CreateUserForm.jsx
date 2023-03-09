@@ -27,7 +27,7 @@ export const CreteUserForm = ({ updateUsers, setUpdateUsers, prevData }) => {
         } catch (e) {
             console.error(error)
         }
-        setUserData({ name: '', description: '', startTime: '', endTime: '', location: '', cost: '' })
+        setUserData({ name: '', email: '', location: '', password: '' })
         setUpdateUsers(!updateUsers)
     }
 

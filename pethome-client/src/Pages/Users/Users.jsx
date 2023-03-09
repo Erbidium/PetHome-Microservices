@@ -4,6 +4,8 @@ import {useFetching} from "../../Hooks/useFetching";
 import UserService from "../../HTTP/UserService";
 import {MyLoader} from "../../UI/MyLoader/MyLoader";
 import {UserList} from "../../Components/Users/UserList/UserList";
+import {CreteUserForm} from "../../Components/Users/Forms/CreateUserForm/CreateUserForm";
+import {UpdateUserForm} from "../../Components/Users/Forms/UpdateUserForm/UpdateUserForm";
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -30,16 +32,29 @@ export default function Users() {
     if (loader) return <MyLoader />
     return (
         <div className={s.page}>
-
+        {
+            isUpdate ?
+                <UpdateUserForm
+                    updateUsers={updateUsers}
+                    setUpdateUsers={updateUsers}
+                    prevData={prevData}
+                />
+                :
+                <CreteUserForm
+                    updateUsers={updateUsers}
+                    setUpdateUsers={setUpdateUsers}
+                    prevData={{ name: '', email: '', location: '', password: '' }}
+                />
+        }
 
             <h1 style={{ textAlign: 'center', marginTop: '30px' }}> Усі оголошення</h1>
             <div>
                 <UserList
                     users={users}
-                    setUpdateAdverts={setUpdateUsers}
-                    updateAdverts={updateUsers}
+                    setUpdateUsers={setUpdateUsers}
+                    updateUsers={updateUsers}
                     setPrevData={setPrevData}
-                    setIsRedo={setIsUpdate}
+                    setIsUpdate={setIsUpdate}
                 />
             </div>
         </div>

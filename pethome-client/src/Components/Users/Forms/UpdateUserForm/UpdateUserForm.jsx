@@ -24,7 +24,7 @@ export const UpdateUserForm = ({ updateUsers, setUpdateUsers, prevData }) => {
         } catch (e) {
             console.error(error2)
         }
-        setUserData({ name: '', description: '', startTime: '', endTime: '', location: '', cost: '' })
+        setUserData({ name: '', location: '' })
         setUpdateUsers(!updateUsers)
     }
 
