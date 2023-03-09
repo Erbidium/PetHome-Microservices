@@ -3,6 +3,9 @@ import { useFetching } from '../../../../Hooks/useFetching'
 import s from './CreateUserForm.module.css'
 import { MyLoader } from '../../../../UI/MyLoader/MyLoader'
 import UserService from "../../../../HTTP/UserService";
+import {MyInput} from "../../../../UI/Inputs/MyInput";
+import {MyTextArea} from "../../../../UI/TextArea/MyTextArea";
+import {MyButton} from "../../../../UI/MyButton/MyButton";
 
 export const CreteUserForm = ({ updateUsers, setUpdateUsers, prevData }) => {
 
@@ -33,5 +36,31 @@ export const CreteUserForm = ({ updateUsers, setUpdateUsers, prevData }) => {
     }, [prevData]);
 
     if (loader) return <MyLoader />
-
+    return (
+        <div className={s.form}>
+            <form>
+                <MyInput
+                    placeholder='Введіть назву'
+                    value={userData?.name}
+                    onChange={e => setUserData({ ...userData, name: e.target.value })}
+                />
+                <MyInput
+                    placeholder='Введіть email'
+                    value={userData?.email}
+                    onChange={e => setUserData({ ...userData, email: e.target.value })}
+                />
+                <MyInput
+                    placeholder='Введіть локацію'
+                    value={userData?.location}
+                    onChange={e => setUserData({ ...userData, location: e.target.value })}
+                />
+                <MyInput
+                    placeholder='Введіть пароль'
+                    value={userData?.password}
+                    onChange={e => setUserData({ ...userData, password: e.target.value })}
+                />
+                <MyButton onClick={(e) => createUser(e)}>Створити користувача</MyButton>
+            </form>
+        </div>
+    )
 }
