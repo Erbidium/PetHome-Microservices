@@ -1,9 +1,9 @@
 import axios from 'axios';
-export const url = 'http://192.168.51.114' // https://localhost:7124, empty if docker compose
+export const url = 'http://localhost:3030' // 'http://192.168.51.114'
 
 const $api = axios.create({
     withCredentials: true,
-    baseURL: url
+    baseURL: url,
 })
 
 export default $api;
