@@ -6,8 +6,8 @@ public interface IUserRepository
 {
     Task<User?> GetById(long id);
     Task<List<User>> Get();
-    Task Add(User entity);
-    void Update(User advertToUpdate);
-    void Delete(User entity);
+    Task Add(User user);
+    void Update(User userToUpdate);
+    void Delete(User user);
     Task<int> SaveChangesAsync();
 }

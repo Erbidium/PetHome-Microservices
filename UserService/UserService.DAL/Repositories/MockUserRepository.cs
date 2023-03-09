@@ -15,33 +15,33 @@ public class MockUserRepository : IUserRepository
 
     };
     
-    public Task<User?> GetById(long id)
+    public async Task<User?> GetById(long id)
+    {
+        return _users.FirstOrDefault(user => user.Id == id);
+    }
+
+    public async Task<List<User>> Get()
+    {
+        return _users;
+    }
+
+    public async Task Add(User user)
+    {
+        _users.Add(user);
+    }
+
+    public void Update(User userToUpdate)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<User>> Get()
+    public void Delete(User user)
     {
-        throw new NotImplementedException();
+        _users.Remove(user);
     }
 
-    public Task Add(User entity)
+    public async Task<int> SaveChangesAsync()
     {
-        throw new NotImplementedException();
-    }
-
-    public void Update(User advertToUpdate)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Delete(User entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<int> SaveChangesAsync()
-    {
-        throw new NotImplementedException();
+        return 0;
     }
 }
