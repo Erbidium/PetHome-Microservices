@@ -1,0 +1,22 @@
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 30px 30px 50px;
+    min-width: 400px;
+}
+
+form>* {
+    margin: 5px;
+}
+form>input{
+    height: 40px;
+}
+
+input {
+    width: 100%;
+}
+button{
+    height: 35px;
+}
