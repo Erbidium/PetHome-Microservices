@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using UserService.BLL.DTOs;
 using UserService.BLL.Services.Base;
 using UserService.BLL.Services.Interfaces;
@@ -9,6 +10,8 @@ namespace UserService.BLL.Services;
 
 public class UserService: BaseService, IUserService
 {
+    private PasswordHasher<User> _passwordHasher = new();
+
     public UserService(IUserRepository userRepository, IMapper mapper)
         : base(userRepository, mapper) { }
 
@@ -29,6 +32,9 @@ public class UserService: BaseService, IUserService
     public async Task CreateUser(CreateUserDto user)
     {
         var newUser = Mapper.Map<User>(user);
+        
+        var hashedPassword = _passwordHasher.HashPassword(newUser, user.Password);
+        newUser.Password = hashedPassword;
         
         await UserRepository.Add(newUser);
         await UserRepository.SaveChangesAsync();
