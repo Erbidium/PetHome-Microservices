@@ -36,7 +36,7 @@ export default function Users() {
             isUpdate ?
                 <UpdateUserForm
                     updateUsers={updateUsers}
-                    setUpdateUsers={updateUsers}
+                    setUpdateUsers={setUpdateUsers}
                     prevData={prevData}
                 />
                 :
