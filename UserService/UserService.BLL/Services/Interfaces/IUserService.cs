@@ -8,5 +8,5 @@ public interface IUserService
     Task<UserDto> GetUserById(long id);
     Task CreateUser(CreateUserDto user);
     Task DeleteUser(long userId);
-    Task UpdateAdvert(UserDto newUserData, long userId);
+    Task UpdateUser(UserDto newUserData, long userId);
 }

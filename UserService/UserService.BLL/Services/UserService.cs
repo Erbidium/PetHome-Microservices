@@ -44,7 +44,7 @@ public class UserService: BaseService, IUserService
         await UserRepository.SaveChangesAsync();
     }
 
-    public async Task UpdateAdvert(UserDto newUserData, long userId)
+    public async Task UpdateUser(UserDto newUserData, long userId)
     {
         var user = await UserRepository.GetById(userId);
         if (user is null)
