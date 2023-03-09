@@ -1,0 +1,14 @@
+.myBtn {
+    padding: 5px 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: lightblue;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.myBtn:hover {
+    opacity: 0.8;
+    transition: 0.5s;
+}
