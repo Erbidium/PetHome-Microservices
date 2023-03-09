@@ -7,7 +7,7 @@ import RequestService from '../../../HTTP/RequestService'
 import { MyLoader } from '../../../UI/MyLoader/MyLoader'
 
 
-export const RequestItem = ({ request, setUpdateRequests, updateRequests, setPrevData, setIsRedo }) => {
+export const RequestItem = ({ request, setUpdateRequests, updateRequests }) => {
 
   const [deleteRequestFetching, loader, error] = useFetching(async () => {
     await RequestService.deleteRequest(request?.id)
@@ -65,16 +65,12 @@ export const RequestItem = ({ request, setUpdateRequests, updateRequests, setPre
   return (
     <div>
       <li className={s.requestItem}>
-        <div className={s.requestName}>
-          <strong>
-            Request ID: {request?.id}
-          </strong>
-        </div>
         <div className={s.infoSection}>
           <div className={s.requestInfo}>
-            <div className={s.requestName}>User ID: "{request?.userId}"</div>
-            <div className={s.requestName}>Advert ID: "{request?.advertId}"</div>
-            <div className={s.requestName}>State: {request?.status}</div>
+            <div className={s.requestName}><strong>Request ID:</strong> {request?.id}</div>
+            <div className={s.requestName}><strong>From user ID:</strong> "{request?.userId}"</div>
+            <div className={s.requestName}><strong>To advert ID:</strong> {request?.advertId}</div>
+            <div className={s.requestName}><strong>State:</strong> {request?.status}</div>
           </div>
         </div>
         <div className={s.buttons}>

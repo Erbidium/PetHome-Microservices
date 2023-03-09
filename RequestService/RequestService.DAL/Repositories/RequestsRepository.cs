@@ -44,6 +44,7 @@ namespace RequestService.DAL.Repositories
 
         public async Task Add(Request requestToAdd) //TEMP: ASYNC FOR HARDCODE
         {
+            requestToAdd.Id = requests.Count > 0 ? requests.MaxBy(r => r.Id).Id + 1 : 0; //TEMP: FOR HARDCODE
             requests.Add(requestToAdd);
             //await _context.Requests.AddAsync(requestToAdd);
         }

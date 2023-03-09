@@ -2,7 +2,7 @@ import React from 'react'
 import { RequestItem } from '../../Requests/RequestItem/RequestItem'
 import s from './RequestList.module.css'
 
-export const RequestList = ({ requests, setUpdateRequests, updateRequests, setPrevData, setIsRedo }) => {
+export const RequestList = ({ requests, setUpdateRequests, updateRequests, setPrevData }) => {
     if (!requests.length) {
         return <div>
             <h1 style={{ textAlign: 'center' }}>
@@ -21,7 +21,6 @@ export const RequestList = ({ requests, setUpdateRequests, updateRequests, setPr
                         key={request.id}
                         setUpdateRequests={setUpdateRequests}
                         updateRequests={updateRequests}
-                        setIsRedo={setIsRedo}
                     />
                 )}
             </ul>

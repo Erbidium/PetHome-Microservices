@@ -31,7 +31,7 @@ namespace RequestService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(int advertId)
+        public async Task<IActionResult> Post([FromForm]int advertId)
         {
             return Ok(await _requestService.AddRequest(UserId, advertId, DAL.Enums.RequestStatusEnum.applied));
         }

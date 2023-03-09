@@ -53,7 +53,7 @@ namespace RequestService.BLL.Services
             request.Status = DAL.Enums.RequestStatusEnum.confirmed;
 
             List<Request> requestsToReject = await _requestRepository.GetByAdvertId(request.AdvertId);
-            requestsToReject.RemoveAll(r => r.UserId == userId);
+            requestsToReject.RemoveAll(r => r.Id == requestId);
             requestsToReject.ForEach(r =>
             {
                 r.Status = DAL.Enums.RequestStatusEnum.rejected;
