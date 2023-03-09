@@ -22,7 +22,7 @@ export default class AdvertService {
         return response.data
     }
     static async redoUserAdvert(redoData, id) {
-        const response = await $api.put('/api/myadverts/' + id, redoData)
+        const response = await $api.put('/api/adverts/' + id, redoData)
         return response.data
     }
 }

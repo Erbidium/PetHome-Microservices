@@ -19,9 +19,16 @@ export const CreteAdvertForm = ({ updateAdverts, setUpdateAdverts, isRedo, prevD
         await AdvertService.createAdvert(formData)
     })
 
+    const [redoAdvertFetching, loader2, error2] = useFetching(async () => {
+        const formData = new FormData();
+        Object.keys(advertData).forEach(function (key, index) {
+            formData.append(key, Object.values(advertData)[index])
+        })
+        await AdvertService.redoUserAdvert(formData, prevData?.id)
+    })
+
     async function createAdvert(e) {
         e.preventDefault()
-        console.log(advertData)
         try {
             await createAdvertFetching()
         } catch (e) {
@@ -32,14 +39,20 @@ export const CreteAdvertForm = ({ updateAdverts, setUpdateAdverts, isRedo, prevD
     }
     async function redoAdvert(e) {
         e.preventDefault()
-        console.log(advertData)
+        try {
+            await redoAdvertFetching()
+        } catch (e) {
+            console.error(error2)
+        }
+        setAdvertData({ name: '', description: '', startTime: '', endTime: '', location: '', cost: '' })
+        setUpdateAdverts(!updateAdverts)
     }
 
     useEffect(() => {
         setAdvertData(prevData)
     }, [prevData]);
 
-    if (loader) return <MyLoader />
+    if (loader || loader2) return <MyLoader />
     return (
         <div className={s.form}>
             <form>

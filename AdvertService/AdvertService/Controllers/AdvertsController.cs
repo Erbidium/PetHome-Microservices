@@ -47,10 +47,10 @@ namespace AdvertService.Controllers
             await _advertService.deleteAdvert(advertId);
             return Ok();
         }
-        [HttpPut("myadverts/{id}")]
-        public async Task<ActionResult> UpdateAdvert([FromForm] AdvertCreateRedoDTO data,int id)
+        [HttpPut("{advertId}")]
+        public async Task<ActionResult> UpdateAdvert([FromForm] AdvertCreateRedoDTO data,int advertId)
         {
-            await _advertService.updateAdvert(data, id);
+            await _advertService.updateAdvert(data, advertId);
             return Ok();
         }
     }
