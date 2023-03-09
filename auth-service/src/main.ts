@@ -34,9 +34,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3030, () => {
-    console.log(`Server running at http://localhost:3030`);
-    console.log(`Swagger running at http://localhost:3030/api`);
+  await app.listen(8080, () => {
   });
 }
 bootstrap();
