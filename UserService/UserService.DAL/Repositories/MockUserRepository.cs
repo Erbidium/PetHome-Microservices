@@ -32,7 +32,8 @@ public class MockUserRepository : IUserRepository
 
     public void Update(User userToUpdate)
     {
-        throw new NotImplementedException();
+        int userIndex =  _users.FindIndex(el => el.Id == userToUpdate.Id);
+        _users[userIndex] = userToUpdate;
     }
 
     public void Delete(User user)
