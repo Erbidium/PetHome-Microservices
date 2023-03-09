@@ -5,7 +5,7 @@ namespace UserService.DAL.Repositories;
 
 public class MockUserRepository : IUserRepository
 {
-    private List<User> _users = new()
+    private static readonly List<User> Users = new()
     {
         new User {Id = 1, Name = "name1", Location = "location1", Email = "email1@email.com", Password = "hashedPassword1" },
         new User {Id = 2, Name = "name2", Location = "location2", Email = "email2@email.com", Password = "hashedPassword2" },
@@ -17,29 +17,29 @@ public class MockUserRepository : IUserRepository
     
     public async Task<User?> GetById(long id)
     {
-        return _users.FirstOrDefault(user => user.Id == id);
+        return Users.FirstOrDefault(user => user.Id == id);
     }
 
     public async Task<List<User>> Get()
     {
-        return _users;
+        return Users;
     }
 
     public async Task Add(User user)
     {
-        user.Id = _users.Max(u => u.Id) + 1;
-        _users.Add(user);
+        user.Id = Users.Max(u => u.Id) + 1;
+        Users.Add(user);
     }
 
     public void Update(User userToUpdate)
     {
-        int userIndex =  _users.FindIndex(el => el.Id == userToUpdate.Id);
-        _users[userIndex] = userToUpdate;
+        int userIndex =  Users.FindIndex(el => el.Id == userToUpdate.Id);
+        Users[userIndex] = userToUpdate;
     }
 
     public void Delete(User user)
     {
-        _users.Remove(user);
+        Users.Remove(user);
     }
 
     public async Task<int> SaveChangesAsync()
