@@ -1,6 +1,8 @@
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using UserService.BLL.MappingProfiles;
 using UserService.BLL.Services.Interfaces;
+using UserService.DAL.Context;
 using UserService.DAL.Interfaces;
 using UserService.DAL.Repositories;
 using UserService.WebAPI.Middlewares;
@@ -24,9 +26,15 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserService, UserService.BLL.Services.UserService>();
-builder.Services.AddScoped<IUserRepository, MockUserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), options =>
+        options.EnableRetryOnFailure());
+});
 
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(UserProfile)));
 
@@ -37,6 +45,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using var scope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope();
+using var context = scope?.ServiceProvider.GetRequiredService<DataContext>();
+if (context != null && context.Database.GetPendingMigrations().Any())
+{
+    context.Database.Migrate();
 }
 
 app.UseHttpsRedirection();
