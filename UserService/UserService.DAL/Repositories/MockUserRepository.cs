@@ -7,15 +7,15 @@ public class MockUserRepository : IUserRepository
 {
     private static readonly List<User> Users = new()
     {
-        new User {Id = 1, Name = "Петро", Location = "Київ", Email = "email1@email.com", Password = "hashedPassword1" },
-        new User {Id = 2, Name = "Максим", Location = "Львів", Email = "email2@email.com", Password = "hashedPassword2" },
-        new User {Id = 3, Name = "Данило", Location = "Полтава", Email = "email3@email.com", Password = "hashedPassword3" },
-        new User {Id = 4, Name = "Богдан", Location = "Вінниця", Email = "email4@email.com", Password = "hashedPassword4" },
-        new User {Id = 5, Name = "Віталій", Location = "Харків", Email = "email5@email.com", Password = "hashedPassword5" }
+        new User {Id = Guid.NewGuid(), Name = "Петро", Location = "Київ", Email = "email1@email.com", Password = "hashedPassword1" },
+        new User {Id = Guid.NewGuid(), Name = "Максим", Location = "Львів", Email = "email2@email.com", Password = "hashedPassword2" },
+        new User {Id = Guid.NewGuid(), Name = "Данило", Location = "Полтава", Email = "email3@email.com", Password = "hashedPassword3" },
+        new User {Id = Guid.NewGuid(), Name = "Богдан", Location = "Вінниця", Email = "email4@email.com", Password = "hashedPassword4" },
+        new User {Id = Guid.NewGuid(), Name = "Віталій", Location = "Харків", Email = "email5@email.com", Password = "hashedPassword5" }
 
     };
     
-    public async Task<User?> GetById(long id)
+    public async Task<User?> GetById(Guid id)
     {
         return Users.FirstOrDefault(user => user.Id == id);
     }
@@ -27,7 +27,7 @@ public class MockUserRepository : IUserRepository
 
     public async Task Add(User user)
     {
-        user.Id = Users.Count > 0 ? Users.Max(u => u.Id) + 1 : 1;
+        user.Id = Guid.NewGuid();
         Users.Add(user);
     }
 
