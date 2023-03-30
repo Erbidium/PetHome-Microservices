@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { MockTokenRepo } from '../repos';
+import { PrismaService } from '../prisma/prisma.service';
+import { PrismaTokenRepo } from '../repos';
 import { IDataService } from './idata-service';
 
 @Injectable()
 export class DataService implements IDataService {
-  tokenRepo = new MockTokenRepo();
+  constructor(private prisma: PrismaService) {}
+
+  tokenRepo = new PrismaTokenRepo(this.prisma);
 }
