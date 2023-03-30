@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: advert-service-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: advert-service-db
+  template:
+    metadata:
+      labels:
+        app: advert-service-db
+    spec:
+      containers:
+        - name: advert-service-db
+          image: mcr.microsoft.com/mssql/server:2022-latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1433
+          envFrom:
+            - configMapRef:
+                name: advert-service-db-config
+            - secretRef:
+                name: advert-service-db-secret
+          volumeMounts:
+          - mountPath: /var/opt/mssql/data
+            name: sqldata-storage
+      volumes:
+      - name: sqldata-storage
+        persistentVolumeClaim:
+          claimName: advert-service-db-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: advert-db
+  labels:
+    app: mssql-db
+spec:
+  ports:
+    - port: 1433
+  selector:
+    app: advert-service-db
