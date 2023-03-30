@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migration-auth-db
+spec:
+  template:
+    spec:
+      containers:
+        - name: migration-auth-db
+          image: illiakniaziev/migration-auth-db
+          imagePullPolicy: Always
+          command: [ 'npx', 'prisma', 'migrate', 'deploy' ]
+          envFrom:
+            - configMapRef:
+                name: auth-service-config
+            - secretRef:
+                name: auth-service-secret
+          env:
+            - name: DB_URL
+              value: "$(DB_DIALECT)://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(POSTGRES_DB)"
+      restartPolicy: Never
+  backoffLimit: 4
