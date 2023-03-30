@@ -5,8 +5,8 @@ namespace UserService.BLL.Services.Interfaces;
 public interface IUserService
 {
     Task<List<UserDto>> GetUsers();
-    Task<UserDto> GetUserById(long id);
+    Task<UserDto> GetUserById(Guid id);
     Task CreateUser(CreateUserDto user);
-    Task DeleteUser(long userId);
-    Task UpdateUser(UpdateUserDto newUserData, long userId);
+    Task DeleteUser(Guid userId);
+    Task UpdateUser(UpdateUserDto newUserData, Guid userId);
 }

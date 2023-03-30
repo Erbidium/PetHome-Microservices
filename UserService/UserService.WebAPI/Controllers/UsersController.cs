@@ -21,8 +21,8 @@ public class UsersController : ControllerBase
         return Ok(users);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<UserDto>> Get(long id)
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<UserDto>> Get(Guid id)
     {
         return Ok(await _userService.GetUserById(id));
     }
@@ -34,15 +34,15 @@ public class UsersController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete("{userId:long}")]
-    public async Task<ActionResult> DeleteUser(long userId)
+    [HttpDelete("{userId:guid}")]
+    public async Task<ActionResult> DeleteUser(Guid userId)
     {
         await _userService.DeleteUser(userId);
         return Ok();
     }
     
-    [HttpPut("{userId:long}")]
-    public async Task<ActionResult> UpdateUser([FromForm] UpdateUserDto newUserData, long userId)
+    [HttpPut("{userId:guid}")]
+    public async Task<ActionResult> UpdateUser([FromForm] UpdateUserDto newUserData, Guid userId)
     {
         await _userService.UpdateUser(newUserData, userId);
         return Ok();

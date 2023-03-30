@@ -21,7 +21,7 @@ public class UserService: BaseService, IUserService
         return Mapper.Map<List<UserDto>>(users);
     }
 
-    public async Task<UserDto> GetUserById(long id)
+    public async Task<UserDto> GetUserById(Guid id)
     {
         if (await UserRepository.GetById(id) is not { } user)
             throw new KeyNotFoundException("User is not found");
@@ -40,7 +40,7 @@ public class UserService: BaseService, IUserService
         await UserRepository.SaveChangesAsync();
     }
 
-    public async Task DeleteUser(long userId)
+    public async Task DeleteUser(Guid userId)
     {
         var user = await UserRepository.GetById(userId);
         if (user is null)
@@ -50,7 +50,7 @@ public class UserService: BaseService, IUserService
         await UserRepository.SaveChangesAsync();
     }
 
-    public async Task UpdateUser(UpdateUserDto newUserData, long userId)
+    public async Task UpdateUser(UpdateUserDto newUserData, Guid userId)
     {
         var user = await UserRepository.GetById(userId);
         if (user is null)
