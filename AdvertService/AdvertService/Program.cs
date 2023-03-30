@@ -33,7 +33,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), options =>
+    options.EnableRetryOnFailure());
+    
 });
 
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdvertProfile)));
@@ -45,6 +47,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using var scope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope();
+using var context = scope?.ServiceProvider.GetRequiredService<DataContext>();
+if (context != null && context.Database.GetPendingMigrations().Any())
+{
+    context.Database.Migrate();
 }
 
 app.UseHttpsRedirection();
