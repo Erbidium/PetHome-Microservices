@@ -8,6 +8,8 @@ RUN npm ci --omit=dev
  
 RUN npm run build
 
+RUN npx prisma generate
+
 USER node
 
 EXPOSE 8080

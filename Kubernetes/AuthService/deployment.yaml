@@ -18,3 +18,11 @@ spec:
           name: auth-service           # ім'я контейнеру
           ports:
             - containerPort: 8080  # порт по якому можна звертатись до поди
+          envFrom:
+            - configMapRef:
+              name: auth-service-config
+            - secretRef:
+              name: auth-service-secret
+          env:
+            - name: DB_URL
+              value: "$(DB_DIALECT)://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(POSTGRES_DB)"
