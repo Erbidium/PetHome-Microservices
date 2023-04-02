@@ -18,13 +18,11 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: postgres
-            - name: POSTGRES_USER
-              value: postgres
-            - name: POSTGRES_PASSWORD
-              value: postgres
+          envFrom:
+            - configMapRef:
+                name: auth-db-config
+            - secretRef:
+                name: auth-db-secret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgres-volume

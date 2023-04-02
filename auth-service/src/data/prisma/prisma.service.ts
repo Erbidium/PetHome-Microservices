@@ -8,7 +8,7 @@ export class PrismaService
 {
   constructor() {
     const url =
-      'postgresql://postgres:1111111111@localhost:5432/nestjs?schema=public';
+      'postgresql://authdb:postgres@auth-db:5432/authdb';
 
     super({
       datasources: {
