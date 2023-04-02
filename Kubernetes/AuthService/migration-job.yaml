@@ -16,7 +16,7 @@ spec:
             - secretRef:
                 name: auth-service-secret
           env:
-            - name: DB_URL
+            - name: DATABASE_URL
               value: "$(DB_DIALECT)://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(POSTGRES_DB)"
       restartPolicy: Never
   backoffLimit: 4
