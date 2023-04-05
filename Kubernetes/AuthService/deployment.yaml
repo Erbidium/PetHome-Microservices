@@ -25,4 +25,4 @@ spec:
                 name: auth-service-secret
           env:
             - name: DATABASE_URL
-              value: "postgresql://authdb:postgres@auth-db:5432/authdb"
+              value: "$(DB_DIALECT)://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)"
