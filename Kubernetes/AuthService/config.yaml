@@ -4,6 +4,7 @@ metadata:
   name: auth-service-config
 data:
   PORT: "8080"
-  DB_DIALECT: postgres
+  DB_NAME: "authdb"
+  DB_DIALECT: postgresql
   DB_HOST: auth-db
   DB_PORT: "5432"

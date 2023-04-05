@@ -7,8 +7,7 @@ export class PrismaService
   implements OnModuleInit, OnModuleDestroy
 {
   constructor() {
-    const url =
-      'postgresql://postgres:1111111111@localhost:5432/nestjs?schema=public';
+    const url = process.env.DATABASE_URL;
 
     super({
       datasources: {
