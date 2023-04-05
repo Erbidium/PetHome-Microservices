@@ -8,8 +8,7 @@ spec:
       containers:
         - name: migration-auth-db
           image: illiakniaziev/migration-auth-db
-          imagePullPolicy: Always
-          command: [ 'npx', 'prisma', 'migrate', 'deploy' ]
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: auth-service-config
@@ -18,5 +17,6 @@ spec:
           env:
             - name: DATABASE_URL
               value: "$(DB_DIALECT)://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)"
+          command: ['npx', 'prisma', 'migrate', 'deploy']
       restartPolicy: Never
-  backoffLimit: 10
+  backoffLimit: 5
