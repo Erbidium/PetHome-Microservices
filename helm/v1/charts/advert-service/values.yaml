@@ -22,3 +22,5 @@ mssql-latest:
   mssqlPassword: "Qwerty123!"
   nameOverride: "advert-db"
   fullnameOverride: "advert-db"
+
+fullnameOverride: "advert-service"

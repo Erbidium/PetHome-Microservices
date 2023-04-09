@@ -18,3 +18,5 @@ ingress:
   port: http
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 512m
+  
+fullnameOverride: "pethome-client"
