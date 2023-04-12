@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  name: erbidium/request-service
+  containerName: request-service
+  port: 8080
+  tag: latest
+
+service:
+  ports:
+    - name: http
+      port: 80
+      containerPort: 8080
+
+ingress:
+  path: /api/requests
+  port: http
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 512m
+
+mssql-latest:
+  mssqlPassword: "Qwerty123!"
+  nameOverride: "request-db"
+  fullnameOverride: "request-db"
+
+fullnameOverride: "request-service"
