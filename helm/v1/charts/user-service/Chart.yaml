@@ -1,0 +1,10 @@
+apiVersion: v2
+type: application
+version: 0.1.0
+name: user-service
+appVersion: "1.16.0"
+description: "user-service"
+dependencies:
+  - name: mssql-latest
+    version: 0.1.1
+    repository: https://erbidium.github.io/ms-sql-helm-chart/

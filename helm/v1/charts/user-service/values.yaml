@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  name: erbidium/user-service
+  containerName: user-service
+  port: 8080
+  tag: latest
+
+service:
+  ports:
+    - name: http
+      port: 80
+      containerPort: 8080
+
+ingress:
+  path: /api/users
+  port: http
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 512m
+
+mssql-latest:
+  mssqlPassword: "Qwerty123!"
+  nameOverride: "user-db"
+  fullnameOverride: "user-db"
+
+fullnameOverride: "user-service"

@@ -1,0 +1,6 @@
+dependencies:
+- name: mssql-latest
+  repository: https://erbidium.github.io/ms-sql-helm-chart/
+  version: 0.1.1
+digest: sha256:9733bde11095cdf342ac922b7737ebb03586cd5a828238e9cd5328822ec18c16
+generated: "2023-04-13T02:16:42.221167+03:00"
