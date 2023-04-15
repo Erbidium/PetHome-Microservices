@@ -25,33 +25,10 @@ spec:
         - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           name: {{ .Values.image.containerName }}
           imagePullPolicy: Always
-          {{- if .Values.volume }}
-          volumeMounts:
-            - mountPath: {{ .Values.volume.mountPath }}
-              name: {{ .Values.volume.name }}
-          {{- end }}
           ports:
           {{- range .Values.service.ports }}
             - containerPort: {{ .containerPort }}
               name: {{ .name }}
           {{- end }}
-          envFrom:
-            - configMapRef:
-                optional: true
-                name: {{ include "common.fullname" $ }}-config
-            - secretRef:
-                optional: true
-                name: {{ include "common.fullname" $ }}-secret
-          env:
-            - name: DB_URL
-              value: "$(DB_DIALECT)://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)"
-            - name: DB_URL_DOTNET
-              value: "Host=$(DB_HOST); Port=$(DB_PORT); Database=$(DB_NAME); User Id=$(DB_USERNAME); Password=$(DB_PASSWORD)"
-      {{- if .Values.volume }}
-      volumes:
-        - name: {{ .Values.volume.name }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.volume.claimName }}
-      {{- end }}
 {{- end -}}
 {{- end -}}

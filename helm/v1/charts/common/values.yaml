@@ -13,13 +13,9 @@ service:
 ingress:
   path: /
   port: http
-  annotations: []
 
 configs: {}
 
 secrets: {}
 
 common: {}
-
-volume:
-  storageCapacity: ""

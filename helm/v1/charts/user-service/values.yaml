@@ -15,8 +15,6 @@ service:
 ingress:
   path: /api/users
   port: http
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 512m
 
 mssql-latest:
   mssqlPassword: "Qwerty123!"
