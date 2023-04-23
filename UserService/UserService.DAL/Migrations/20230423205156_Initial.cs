@@ -25,6 +25,11 @@ namespace UserService.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "Location", "Name", "Password" },
+                values: new object[] { new Guid("eab08aff-4a7f-46e8-a1c2-a3f4ac951ef6"), "TestMail.com", "TestLocation", "TestName", "QWERTY123" });
         }
 
         /// <inheritdoc />

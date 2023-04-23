@@ -47,6 +47,16 @@ namespace UserService.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("eab08aff-4a7f-46e8-a1c2-a3f4ac951ef6"),
+                            Email = "TestMail.com",
+                            Location = "TestLocation",
+                            Name = "TestName",
+                            Password = "QWERTY123"
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -12,7 +12,7 @@ using UserService.DAL.Context;
 namespace UserService.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230330082058_Initial")]
+    [Migration("20230423205156_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -50,6 +50,16 @@ namespace UserService.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("eab08aff-4a7f-46e8-a1c2-a3f4ac951ef6"),
+                            Email = "TestMail.com",
+                            Location = "TestLocation",
+                            Name = "TestName",
+                            Password = "QWERTY123"
+                        });
                 });
 #pragma warning restore 612, 618
         }
