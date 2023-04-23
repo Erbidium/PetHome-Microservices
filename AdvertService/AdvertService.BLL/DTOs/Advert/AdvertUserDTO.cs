@@ -2,7 +2,7 @@
 using AdvertService.DAL.Enums;
 using System.Text.Json.Serialization;
 
-namespace AdvertService.BLL.DTOs
+namespace AdvertService.BLL.DTOs.Advert
 {
     public class AdvertUserDTO
     {
