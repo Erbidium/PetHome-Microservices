@@ -1,4 +1,4 @@
-﻿namespace AdvertService.BLL.DTOs
+﻿namespace AdvertService.BLL.DTOs.Advert
 {
     public class AdvertCreateRedoDTO
     {

@@ -1,4 +1,4 @@
-﻿using AdvertService.BLL.DTOs;
+﻿using AdvertService.BLL.DTOs.Advert;
 using AdvertService.DAL.Entities;
 using AutoMapper;
 

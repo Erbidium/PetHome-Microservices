@@ -1,7 +1,7 @@
 ﻿using AdvertService.DAL.Enums;
 using System.Text.Json.Serialization;
 
-namespace AdvertService.BLL.DTOs
+namespace AdvertService.BLL.DTOs.Advert
 {
     public class AdvertDTO
     {
@@ -10,7 +10,7 @@ namespace AdvertService.BLL.DTOs
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public AdvertStatusEnum status { get; set; }
         public string? photoFilePath { get; set; } = string.Empty;
-        public string?  ownerId { get; set; }
+        public string? ownerId { get; set; }
         public string name { get; set; }
         public string description { get; set; } = string.Empty;
         public int cost { get; set; }

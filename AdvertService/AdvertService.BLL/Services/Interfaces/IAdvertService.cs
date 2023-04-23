@@ -1,11 +1,11 @@
-﻿using AdvertService.BLL.DTOs;
+﻿using AdvertService.BLL.DTOs.Advert;
 
 namespace AdvertService.BLL.Services.Interfaces
 {
     public interface IAdvertService
     {
         Task<List<AdvertDTO>> getAdverts();
-        Task<AdvertDTO> getAdvertById(int advertId);
+        Task<AdvertWithOwnerDTO> getAdvertById(int advertId);
         Task addAdvert(AdvertCreateRedoDTO advertToAdd);
         Task MarkAsFinished(int advertId);
         Task deleteAdvert(int advertId);

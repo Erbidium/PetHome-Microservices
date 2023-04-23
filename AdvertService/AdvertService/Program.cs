@@ -5,6 +5,7 @@ using AdvertService.DAL.Data;
 using AdvertService.DAL.Interfaces;
 using AdvertService.DAL.Repositories;
 using AdvertService.Middlewares;
+using AdvertService.Sync;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -28,6 +29,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<IAdvertService, AdvertsService>();
 builder.Services.AddScoped<IAdvertsRepository, AdvertsRepository>();
+builder.Services.AddScoped<HttpSyncClient>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
