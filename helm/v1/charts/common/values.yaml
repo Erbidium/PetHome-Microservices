@@ -1,5 +1,8 @@
 replicaCount: 1
 
+virtualservice:
+  timeout: ""
+
 nameOverride: ""
 
 image:
