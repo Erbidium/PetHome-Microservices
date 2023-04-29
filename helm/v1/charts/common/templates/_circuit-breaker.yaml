@@ -1,0 +1,22 @@
+{{- define "common.circuitBreaker" -}}
+
+{{- $common := dict "Values" .Values.common -}} # Values з common Chart
+{{- $noCommon := omit .Values "common" -}} # Values з основного Chart
+{{- $overrides := dict "Values" $noCommon -}} # записуємо common Values в змінну Values
+{{- $noValues := omit . "Values" -}} # містить усе крім Values, зокрема Chart, Release
+{{- with merge $noValues $overrides $common -}}
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: {{ include "common.fullname" . }}-circuit-breaker
+spec:
+  host: {{ include "common.fullname" . }}
+  trafficPolicy:
+    outlierDetection:
+      consecutive5xxErrors: 10
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 80
+{{- end -}}
+{{- end -}}
