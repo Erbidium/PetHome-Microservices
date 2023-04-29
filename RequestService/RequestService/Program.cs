@@ -1,4 +1,5 @@
 using System.Reflection;
+using AdvertService.Sync;
 using RequestService.DAL.Data;
 using RequestService.Middlewares;
 using RequestService.BLL.Services;
@@ -28,6 +29,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<IRequestsService, RequestsService>();
 builder.Services.AddScoped<IRequestsRepository, RequestsRepository>();
+builder.Services.AddScoped<HttpSyncClient>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

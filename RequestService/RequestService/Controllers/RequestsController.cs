@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using AdvertService.Sync;
 using RequestService.BLL.DTO;
+using Microsoft.AspNetCore.Mvc;
 using RequestService.BLL.Interfaces;
-using RequestService.Attributes;
 
 namespace RequestService.Controllers
 {
@@ -11,11 +10,13 @@ namespace RequestService.Controllers
     public class RequestsController : ControllerBase
     {
         private readonly IRequestsService _requestService;
+        private readonly HttpSyncClient _syncClient;
         public string UserId { get; set; } = "userID"; //TEMP: HARD CODE
 
-        public RequestsController(IRequestsService requestService)
+        public RequestsController(IRequestsService requestService, HttpSyncClient syncClient)
         {
             _requestService = requestService;
+            _syncClient = syncClient;
         }
 
         [HttpGet]
@@ -28,6 +29,22 @@ namespace RequestService.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await _requestService.GetById(id));
+        }
+
+        [HttpGet("with-owner/{id}")]
+        public async Task<ActionResult<RequestWithAdvertDto>> GetWithAdvert(int id)
+        {
+            RequestDTO requestDto = await _requestService.GetById(id);
+            AdvertDTO advertDto = await _syncClient.GetAdvertByAdvertIDAsync(requestDto.AdvertId);
+            RequestWithAdvertDto requestWithAdvert = new()
+            {
+                Id = requestDto.Id,
+                UserId = requestDto.UserId,
+                AdvertId = requestDto.AdvertId,
+                Status = requestDto.Status,
+                Advert = advertDto
+            };
+            return Ok(requestWithAdvert);
         }
 
         [HttpPost]
