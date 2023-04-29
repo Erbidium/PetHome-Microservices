@@ -31,7 +31,7 @@ namespace RequestService.Controllers
             return Ok(await _requestService.GetById(id));
         }
 
-        [HttpGet("with-owner/{id}")]
+        [HttpGet("with-advert/{id}")]
         public async Task<ActionResult<RequestWithAdvertDto>> GetWithAdvert(int id)
         {
             RequestDTO requestDto = await _requestService.GetById(id);
