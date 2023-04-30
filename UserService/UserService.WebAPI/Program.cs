@@ -6,6 +6,7 @@ using UserService.DAL.Context;
 using UserService.DAL.Interfaces;
 using UserService.DAL.Repositories;
 using UserService.WebAPI.Middlewares;
+using UserService.WebAPI.Sync;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserService, UserService.BLL.Services.UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<HttpSyncClient>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

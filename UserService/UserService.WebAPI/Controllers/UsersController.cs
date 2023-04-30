@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RequestService.BLL.DTO;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UserService.BLL.DTOs;
 using UserService.BLL.Services.Interfaces;
+using UserService.WebAPI.Sync;
 
 namespace UserService.WebAPI.Controllers;
 
@@ -8,10 +13,12 @@ namespace UserService.WebAPI.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly HttpSyncClient _httpClient;
 
-    public UsersController(IUserService userService)
+    public UsersController(IUserService userService, HttpSyncClient httpClient)
     {
         _userService = userService;
+        _httpClient = httpClient;
     }
 
     [HttpGet]
@@ -25,6 +32,22 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<UserDto>> Get(Guid id)
     {
         return Ok(await _userService.GetUserById(id));
+    }
+
+    [HttpGet("with-adverts/{id:guid}")]
+    public async Task<ActionResult<UserWithAdvertsDTO>> GetWithAdvert(Guid id)
+    {
+        UserDto userDTO = await _userService.GetUserById(id);
+        List<AdvertDTO> userAdverts = await _httpClient.GetAdvertsByOwnerIDAsync(id.ToString());
+        UserWithAdvertsDTO userWithAdverts = new()
+        {
+            Id = userDTO.Id,
+            Name = userDTO.Name,
+            Email = userDTO.Email,
+            Location = userDTO.Location,
+            PublishedAdverts = userAdverts
+        };
+        return Ok(userWithAdverts);
     }
 
     [HttpPost]
