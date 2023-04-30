@@ -25,8 +25,8 @@ async function sendRequestsTest(route, count) {
 
 const testAmount = 5;
 const requestsAmount = 100;
-execute('minikube ip', async function(ip){
-    let route = "http://localhost/api/requests/with-advert/2"; 
+execute('minikube service request-service --url', async function(ip){
+    let route = ip.substring(0, ip.length - 1) + "/api/requests/with-advert/1"; 
     for (let i = 0; i < testAmount; i++) {
         await sendRequestsTest(route, requestsAmount);
     }
