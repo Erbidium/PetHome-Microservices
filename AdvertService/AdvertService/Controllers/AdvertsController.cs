@@ -32,7 +32,7 @@ namespace AdvertService.Controllers
         public async Task<ActionResult<AdvertDTO>> Get(int id)
         {
             if (!_unhealthyService.Status)
-                Thread.Sleep(5000);
+                Thread.Sleep(10000);
 
             return Ok(await _advertService.getAdvertById(id));
         }
