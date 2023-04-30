@@ -1,5 +1,6 @@
 ﻿using AdvertService.BLL.DTOs.Advert;
 using AdvertService.BLL.DTOs.User;
+using AdvertService.BLL.Services;
 using AdvertService.BLL.Services.Interfaces;
 using AdvertService.Sync;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,12 @@ namespace AdvertService.Controllers
     {
         private readonly IAdvertService _advertService;
         private readonly HttpSyncClient _syncClient;
-        public AdvertsController(IAdvertService advertService, HttpSyncClient syncClient)
+        private readonly UnhealthySerivce _unhealthyService;
+        public AdvertsController(IAdvertService advertService, HttpSyncClient syncClient, UnhealthySerivce unhealthyService)
         {
             _advertService = advertService;
             _syncClient = syncClient;
+            _unhealthyService = unhealthyService;
         }
 
         [HttpGet]
@@ -35,12 +38,22 @@ namespace AdvertService.Controllers
         [HttpGet("with-owner/{id}")] //here
         public async Task<ActionResult<AdvertWithOwnerDTO>> GetWithOwner(int id)
         {
+            if (!_unhealthyService.Status)
+                Thread.Sleep(5000);
+
             AdvertWithOwnerDTO advertWithOwner = await _advertService.getAdvertById(id);
 
             UserDTO ownerDTO = await _syncClient.GetUserByUserIDAsync(Guid.Parse(advertWithOwner.ownerId));
             advertWithOwner.owner = ownerDTO;
 
             return Ok(advertWithOwner);
+        }
+
+        [HttpGet("change-pod-status")] //for testing retry/timeout
+        public ActionResult<AdvertWithOwnerDTO> ChangeStatus()
+        {
+            _unhealthyService.Status = !_unhealthyService.Status;
+            return Ok(_unhealthyService.Status);
         }
 
         [HttpPost]

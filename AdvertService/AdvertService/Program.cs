@@ -30,6 +30,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IAdvertService, AdvertsService>();
 builder.Services.AddScoped<IAdvertsRepository, AdvertsRepository>();
 builder.Services.AddScoped<HttpSyncClient>();
+builder.Services.AddSingleton<UnhealthySerivce>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
