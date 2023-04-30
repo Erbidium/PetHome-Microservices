@@ -15,7 +15,7 @@ async function sendRequestsTest(route, count) {
             failed++;
             console.log(`ERROR: attempt${i} status:${err.response?.status}`)
         }
-        time += (performance.now() - start) / 1000;
+        time += Number((performance.now() - start) / 1000);
     }
     console.log(`average duration: ${(time / count).toFixed(3)}`);
     console.log(`${failed} from ${count} failed\n`);
@@ -28,4 +28,4 @@ execute('minikube ip', async function(ip){
     for (let i = 0; i < testAmount; i++) {
         await sendRequestsTest(route, requestsAmount);
     }
-})
+})  
