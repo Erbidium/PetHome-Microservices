@@ -49,6 +49,14 @@ namespace AdvertService.Controllers
             return Ok(advertWithOwner);
         }
 
+        [HttpGet("owner-adverts/{id}")]
+        public async Task<ActionResult<List<AdvertDTO>>> GetOwnerAdverts(string id)
+        {
+            List<AdvertDTO> ownerAdverts = await _advertService.getAdvertByOwnerId(id);
+
+            return Ok(ownerAdverts);
+        }
+
         [HttpGet("change-pod-status")] //for testing retry/timeout
         public ActionResult<AdvertWithOwnerDTO> ChangeStatus()
         {

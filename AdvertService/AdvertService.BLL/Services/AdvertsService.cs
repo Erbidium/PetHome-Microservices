@@ -71,6 +71,13 @@ namespace AdvertService.BLL.Services
             _advertsRepository.Update(advertInDb);
             await _advertsRepository.SaveChangesAsync();
         }
+
+        public async Task<List<AdvertDTO>> getAdvertByOwnerId(string ownerId)
+        {
+            var fitAdverts = await _advertsRepository.GetByOwnerId(ownerId);
+            List<AdvertDTO> advertsDTO = _mapper.Map<List<AdvertDTO>>(fitAdverts);
+            return (advertsDTO);
+        }
     }
 }
 

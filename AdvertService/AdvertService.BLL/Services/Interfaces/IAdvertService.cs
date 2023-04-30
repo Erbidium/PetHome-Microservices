@@ -6,6 +6,7 @@ namespace AdvertService.BLL.Services.Interfaces
     {
         Task<List<AdvertDTO>> getAdverts();
         Task<AdvertWithOwnerDTO> getAdvertById(int advertId);
+        Task<List<AdvertDTO>> getAdvertByOwnerId(string ownerId);
         Task addAdvert(AdvertCreateRedoDTO advertToAdd);
         Task MarkAsFinished(int advertId);
         Task deleteAdvert(int advertId);

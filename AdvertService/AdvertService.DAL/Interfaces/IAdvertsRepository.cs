@@ -6,6 +6,7 @@ namespace AdvertService.DAL.Interfaces
     {
         Task<Advert?> GetById(int id);
         Task<List<Advert>?> Get();
+        Task<List<Advert>> GetByOwnerId(string ownerId);
         Task Add(Advert entity);
         void Update(Advert advertToUpdate);
         void Delete(Advert entity);

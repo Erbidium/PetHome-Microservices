@@ -44,5 +44,10 @@ namespace AdvertService.DAL.Repositories
         {
             return _context.SaveChangesAsync();
         }
+
+        public Task<List<Advert>> GetByOwnerId(string ownerId)
+        {
+            return _context.Set<Advert>().Where(advert => advert.ownerId == ownerId).ToListAsync();
+        }
     }
 }
