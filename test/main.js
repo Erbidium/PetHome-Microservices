@@ -19,7 +19,7 @@ async function sendRequestsTest(route, count) {
 
 const testAmount = 5;
 const requestsAmount = 100;
-const route = "http://loclahost/api/requests/with-advert/1"; 
+const route = "http://localhost/api/requests/with-advert/1"; 
 for (let i = 0; i < testAmount; i++) {
     await sendRequestsTest(route, requestsAmount);
 } 
