@@ -31,6 +31,9 @@ namespace AdvertService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AdvertDTO>> Get(int id)
         {
+            if (!_unhealthyService.Status)
+                Thread.Sleep(5000);
+
             return Ok(await _advertService.getAdvertById(id));
         }
 
@@ -38,9 +41,6 @@ namespace AdvertService.Controllers
         [HttpGet("with-owner/{id}")] //here
         public async Task<ActionResult<AdvertWithOwnerDTO>> GetWithOwner(int id)
         {
-            if (!_unhealthyService.Status)
-                Thread.Sleep(5000);
-
             AdvertWithOwnerDTO advertWithOwner = await _advertService.getAdvertById(id);
 
             UserDTO ownerDTO = await _syncClient.GetUserByUserIDAsync(Guid.Parse(advertWithOwner.ownerId));
