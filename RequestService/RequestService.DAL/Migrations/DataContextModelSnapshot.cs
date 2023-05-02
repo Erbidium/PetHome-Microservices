@@ -42,6 +42,15 @@ namespace RequestService.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Requests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AdvertId = 1,
+                            Status = 1,
+                            UserId = "eab08aff-4a7f-46e8-a1c2-a3f4ac951ef6"
+                        });
                 });
 #pragma warning restore 612, 618
         }

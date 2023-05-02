@@ -2,13 +2,31 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Design;
+using RequestService.DAL.Enums;
 
 namespace RequestService.DAL.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Request> Requests { get; set; }
+        
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Request>()
+                .HasData(
+                    new Request
+                    {
+                        Id = 1,
+                        UserId = "eab08aff-4a7f-46e8-a1c2-a3f4ac951ef6",
+                        AdvertId = 1,
+                        Status = RequestStatusEnum.applied
+                    }
+                );
+            
+            base.OnModelCreating(builder);
+        }
     }
 
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DataContext>
