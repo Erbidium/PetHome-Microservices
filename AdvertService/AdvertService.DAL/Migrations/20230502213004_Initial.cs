@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AdvertService.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,11 @@ namespace AdvertService.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "adverts",
+                columns: new[] { "Id", "cost", "description", "endTime", "location", "name", "ownerId", "performerId", "startTime", "status" },
+                values: new object[] { 1, 500, "TestDesacription", new DateTime(2021, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kyiv", "TestAdvert", "", null, new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 });
         }
 
         /// <inheritdoc />

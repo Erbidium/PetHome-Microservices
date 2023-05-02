@@ -10,6 +10,7 @@ namespace AdvertService.DAL.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Advert> adverts { get; set; }
         public DbSet<AdvertToRequests> advertsToRequests { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<AdvertToRequests>()
@@ -21,8 +22,23 @@ namespace AdvertService.DAL.Data
                 .WithMany(r => r.advertToRequest)
                 .HasForeignKey(a => a.advertId);
                 
+            builder.Entity<Advert>()
+                .HasData(
+                    new Advert
+                    {
+                        Id = 1,
+                        name = "TestAdvert",
+                        description = "TestDesacription",
+                        cost = 500,
+                        location = "Kyiv",
+                        startTime = new DateTime(2020, 9, 9),
+                        endTime = new DateTime(2021, 10, 10)
+                    }
+                );
+            
             base.OnModelCreating(builder);
         }
+
         public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DataContext>
         {
             public DataContext CreateDbContext(string[] args)

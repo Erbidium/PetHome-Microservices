@@ -64,6 +64,20 @@ namespace AdvertService.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("adverts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            cost = 500,
+                            description = "TestDesacription",
+                            endTime = new DateTime(2021, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            location = "Kyiv",
+                            name = "TestAdvert",
+                            ownerId = "",
+                            startTime = new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            status = 0
+                        });
                 });
 
             modelBuilder.Entity("AdvertService.DAL.Entities.AdvertToRequests", b =>
